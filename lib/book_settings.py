@@ -190,7 +190,7 @@ class BookSettings(object):
 
         # return the full URL with the query parameters removed
         url = 'https://www.goodreads.com' + urlsearch.group(1)
-        return urlparse.urlparse(url)._replace(query=None).geturl()
+        return urlparse(url)._replace(query=None).geturl()
 
     def search_for_asin_on_goodreads(self, url):
         '''Searches for ASIN of book at given url'''

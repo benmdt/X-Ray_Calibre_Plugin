@@ -4,6 +4,9 @@
 
 from __future__ import (unicode_literals, division, absolute_import,
                         print_function)
+from future import standard_library
+standard_library.install_aliases()
+from builtins import map
 
 __license__ = 'GPL v3'
 __copyright__ = '2016, Samreen Zarroug, Anthony Toole, & Alex Mayer'
@@ -11,7 +14,7 @@ __docformat__ = 'restructuredtext en'
 
 import os
 import webbrowser
-from httplib import HTTPSConnection
+from http.client import HTTPSConnection
 from PyQt5.Qt import QMenu, QToolButton, QIcon, QPixmap
 
 from calibre import get_proxies

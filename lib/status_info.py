@@ -1,6 +1,7 @@
 #status_info.py
 '''Holds status information'''
 
+from builtins import object
 class StatusInfo(object):
     '''Class to hold book status information'''
 

@@ -1,6 +1,7 @@
 # db_writer.py
 '''Writes x-ray data into file using given information'''
 
+from builtins import object
 import os
 import json
 import zipfile

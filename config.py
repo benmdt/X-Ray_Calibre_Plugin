@@ -141,7 +141,7 @@ class ConfigWidget(QWidget):
     def save_settings(self):
         '''Saves current settings into preferences json file'''
         special = ['file_preference_azw3', 'file_preference_mobi', 'mobi', 'azw3']
-        for setting, value in self._settings.items():
+        for setting, value in list(self._settings.items()):
             if setting not in special:
                 __prefs__[setting] = value.isChecked()
 

@@ -4,6 +4,8 @@
 
 from __future__ import (unicode_literals, division, absolute_import,
                         print_function)
+from future import standard_library
+standard_library.install_aliases()
 
 __license__ = 'GPL v3'
 __copyright__ = '2016, Samreen Zarroug, Anthony Toole, & Alex Mayer'
@@ -221,7 +223,8 @@ class BookConfigWidget(QDialog):
         if not prefs['tld']:
             import json
             from collections import defaultdict
-            from urllib2 import urlopen, URLError
+            from urllib.request import urlopen
+            from urllib.error import URLError
 
             try:
                 country = json.loads(urlopen('http://ipinfo.io/json').read())['country']

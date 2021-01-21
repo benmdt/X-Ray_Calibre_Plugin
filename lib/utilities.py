@@ -69,7 +69,7 @@ def open_url(connection, url, return_redirect_url=False):
     if b'Page Not Found' in response:
         raise PageDoesNotExist('Page not found.')
 
-    return response
+    return response.decode('utf-8')
 
 
 def auto_expand_aliases(characters):

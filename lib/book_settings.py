@@ -9,7 +9,7 @@ import os
 import json
 from sqlite3 import connect
 from urllib.parse import urlencode
-from urllib2 import urlparse
+from urllib.parse import urlparse
 
 from calibre_plugins.xray_creator.lib.exceptions import PageDoesNotExist
 from calibre_plugins.xray_creator.lib.goodreads_parser import GoodreadsParser

@@ -197,7 +197,7 @@ class GoodreadsParser(object):
             alias_list = char_page.xpath('//div[@class="grey500BoxContent" and contains(.,"aliases")]/text()')
             alias_list = [re.sub(r'\s+', ' ', x).strip() for aliases in alias_list for x in aliases.split(',')
                           if re.sub(r'\s+', ' ', x).strip()]
-            character_data[entity_id] = {'label': str(char.text.encode('latin-1')),
+            character_data[entity_id] = {'label': str(char.text),
                                          'description': desc,
                                          'aliases': alias_list}
             entity_id += 1
@@ -235,7 +235,7 @@ class GoodreadsParser(object):
                 desc = str(re.sub(r'\s+', ' ', desc[0]).strip().encode('latin-1'))
             else:
                 desc = u'No description found on Goodreads.'
-            settings_data[entity_id] = {'label': str(label.encode('latin-1')),
+            settings_data[entity_id] = {'label': str(label),
                                         'description': desc,
                                         'aliases': []}
             entity_id += 1

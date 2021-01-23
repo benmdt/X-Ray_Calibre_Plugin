@@ -45,7 +45,7 @@ class BookSettings(object):
         if not self._asin:
             identifiers = database.field_for('identifiers', book_id)
             if 'mobi-asin' in list(identifiers.keys()):
-                self._asin = database.field_for('identifiers', book_id)['mobi-asin'].decode('ascii')
+                self._asin = database.field_for('identifiers', book_id)['mobi-asin']
                 self._prefs['asin'] = self._asin
             else:
                 self._asin = self.search_for_asin_on_amazon(self.title_and_author)

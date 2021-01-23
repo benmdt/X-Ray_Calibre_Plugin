@@ -257,10 +257,10 @@ class GoodreadsParser(object):
             if quotes_page is None:
                 return
             for quote in quotes_page.xpath('//div[@class="quoteText"]'):
-                quotes.append(re.sub(r'\s+', ' ', quote.text).strip().decode('ascii', 'ignore'))
+                quotes.append(re.sub(r'\s+', ' ', quote.text).strip())
         else:
             for quote in self._page_source.xpath('//div[@class=" clearFloats bigBox" and contains(., "Quotes from")]//div[@class="bigBoxContent containerWithHeaderContent"]//span[@class="readable"]'):
-                quotes.append(re.sub(r'\s+', ' ', quote.text).strip().decode('ascii', 'ignore'))
+                quotes.append(re.sub(r'\s+', ' ', quote.text).strip())
 
         return quotes
 

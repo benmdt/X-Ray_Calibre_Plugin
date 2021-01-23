@@ -191,13 +191,13 @@ class GoodreadsParser(object):
 
             desc = char_page.xpath('//div[@class="workCharacterAboutClear"]/text()')
             if desc and re.sub(r'\s+', ' ', desc[0]).strip():
-                desc = str(re.sub(r'\s+', ' ', desc[0]).strip().decode('utf-8').encode('latin-1'))
+                desc = str(re.sub(r'\s+', ' ', desc[0]).strip().encode('latin-1'))
             else:
                 desc = u'No description found on Goodreads.'
             alias_list = char_page.xpath('//div[@class="grey500BoxContent" and contains(.,"aliases")]/text()')
             alias_list = [re.sub(r'\s+', ' ', x).strip() for aliases in alias_list for x in aliases.split(',')
                           if re.sub(r'\s+', ' ', x).strip()]
-            character_data[entity_id] = {'label': str(char.text.decode('utf-8').encode('latin-1')),
+            character_data[entity_id] = {'label': str(char.text.encode('latin-1')),
                                          'description': desc,
                                          'aliases': alias_list}
             entity_id += 1
@@ -232,10 +232,10 @@ class GoodreadsParser(object):
                 continue
             desc = setting_page.xpath('//div[@class="mainContentContainer "]/div[@class="mainContent"]/div[@class="mainContentFloat"]/div[@class="leftContainer"]/span/text()')
             if len(desc) > 0 and re.sub(r'\s+', ' ', desc[0]).strip():
-                desc = str(re.sub(r'\s+', ' ', desc[0]).strip().decode('utf-8').encode('latin-1'))
+                desc = str(re.sub(r'\s+', ' ', desc[0]).strip().encode('latin-1'))
             else:
                 desc = u'No description found on Goodreads.'
-            settings_data[entity_id] = {'label': str(label.decode('utf-8').encode('latin-1')),
+            settings_data[entity_id] = {'label': str(label.encode('latin-1')),
                                         'description': desc,
                                         'aliases': []}
             entity_id += 1
@@ -306,7 +306,7 @@ class GoodreadsParser(object):
 
         author_bio = author_bio[1] if len(author_bio) > 1 else author_bio[0]
 
-        return str(re.sub(r'\s+', ' ', author_bio.text_content()).strip().decode('utf-8').encode('latin-1'))
+        return str(re.sub(r'\s+', ' ', author_bio.text_content()).strip().encode('latin-1'))
 
     @staticmethod
     def _get_author_image(author_page, encode_image=False):

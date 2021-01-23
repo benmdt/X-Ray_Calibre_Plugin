@@ -159,7 +159,7 @@ class BookSettings(object):
             return None
 
         soup = BeautifulSoup(response)
-        results = soup.findAll('div', {'id': 'resultsCol'})
+        results = soup.findAll('div', {'class': 's-result-list'})
 
         if not results:
             return None

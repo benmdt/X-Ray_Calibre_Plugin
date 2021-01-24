@@ -794,8 +794,8 @@ class Book(object):
                     mobi_updater.update(self._basic_info['asin'])
         except MobiError:
             number_of_failed_asin_updates += 1
-            if (self._settings['create_send_xray'] and 'xray' in self._settings['send_to_device'] and
-                    fmt == self._settings['send_to_device']['xray']['format']):
+            if (self._settings['create_send_xray'] and self._settings['send_to_device'] and
+                    fmt in self._settings['formats']):
                 self._statuses['xray_send'].set(StatusInfo.FAIL, StatusInfo.F_UNABLE_TO_UPDATE_ASIN)
                 self._basic_info['xray_send_fmt'] = files_to_send['xray']['format']
                 if 'xray' in files_to_send:

@@ -191,7 +191,7 @@ class GoodreadsParser(object):
 
             desc = char_page.xpath('//div[@class="workCharacterAboutClear"]/text()')
             if desc and re.sub(r'\s+', ' ', desc[0]).strip():
-                desc = str(re.sub(r'\s+', ' ', desc[0]).strip().encode('latin-1'))
+                desc = str(re.sub(r'\s+', ' ', desc[0]).strip())
             else:
                 desc = u'No description found on Goodreads.'
             alias_list = char_page.xpath('//div[@class="grey500BoxContent" and contains(.,"aliases")]/text()')
@@ -232,7 +232,7 @@ class GoodreadsParser(object):
                 continue
             desc = setting_page.xpath('//div[@class="mainContentContainer "]/div[@class="mainContent"]/div[@class="mainContentFloat"]/div[@class="leftContainer"]/span/text()')
             if len(desc) > 0 and re.sub(r'\s+', ' ', desc[0]).strip():
-                desc = str(re.sub(r'\s+', ' ', desc[0]).strip().encode('latin-1'))
+                desc = str(re.sub(r'\s+', ' ', desc[0]).strip())
             else:
                 desc = u'No description found on Goodreads.'
             settings_data[entity_id] = {'label': str(label),

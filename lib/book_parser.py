@@ -85,6 +85,7 @@ class BookParser(object):
             :dict entity_data: dictionary of entity data
             :list occurrence_start: list of occurrence start locations we've come across
         """
+        book_html = book_html.decode('utf-8')
         entity_id = entity_data['entity_id']
         occurrences = entity_data['occurrence']
         excerpt_ids = entity_data['excerpt_ids']

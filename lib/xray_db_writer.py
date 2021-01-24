@@ -38,7 +38,7 @@ class XRayDBWriter(object):
     def fill_book_metadata(self):
         '''Write book_metadata table'''
         srl = num_images = show_spoilers_default = '0'
-        has_excerpts = '1' if self._excerpt_data > 0 else '0'
+        has_excerpts = '1' if len(self._excerpt_data) > 0 else '0'
         num_people = sum(1 for char in list(self._entity_data.keys()) if self._entity_data[char]['type'] == 1)
         num_people_str = str(num_people)
         num_terms = sum(1 for term in list(self._entity_data.keys()) if self._entity_data[term]['type'] == 2)

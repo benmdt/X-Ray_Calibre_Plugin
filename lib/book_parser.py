@@ -15,10 +15,10 @@ from calibre.ebooks.mobi.reader.mobi6 import MobiReader
 from calibre.ebooks.compression.palmdoc import decompress_doc
 
 
-PATTERNS = [r'(<)(p|i|h\d).*?>([^a-zA-Z0-9\s]*{}(?:[^a-zA-Z0-9\s]*?|[^a-zA-Z0-9\s]+\S*?))<\/\2.*?(>)', # word is the paragraph
-            r'(<)(p|i|h\d).*?>([^a-zA-Z0-9\s]*{}(?:[^a-zA-Z0-9\s]*?|[^a-zA-Z0-9\s]+\S*?))\s.*?<\/\2.*?(>)', # beginning of paragraph
-            r'(<)(p|i|h\d).*?>.*?\s([^a-zA-Z0-9\s]*{}(?:[^a-zA-Z0-9\s]*?|[^a-zA-Z0-9\s]+\S*?))<\/\2.*?(>)', # end of paragraph
-            r'(<)(p|i|h\d).*?>.*?\s([^a-zA-Z0-9\s]*{}(?:[^a-zA-Z0-9\s]*?|[^a-zA-Z0-9\s]+\S*?))\s.*?<\/\2.*?(>)'] # middle of paragraph
+PATTERNS = [r'(<)(p|i|h\d|span).*?>([a-zA-Z0-9\s]*{}(?:[a-zA-Z0-9\s]*?|[a-zA-Z0-9\s]+\S*?))<\/\2.*?(>)', # word is the paragraph
+            r'(<)(p|i|h\d|span).*?>([a-zA-Z0-9\s]*{}(?:[a-zA-Z0-9\s]*?|[a-zA-Z0-9\s]+\S*?))\s.*?<\/\2.*?(>)', # beginning of paragraph
+            r'(<)(p|i|h\d|span).*?>.*?\s([a-zA-Z0-9\s]*{}(?:[a-zA-Z0-9\s]*?|[a-zA-Z0-9\s]+\S*?))<\/\2.*?(>)', # end of paragraph
+            r'(<)(p|i|h\d|span).*?>.*?\s([a-zA-Z0-9\s]*{}(?:[a-zA-Z0-9\s]*?|[a-zA-Z0-9\s]+\S*?))\s.*?<\/\2.*?(>)'] # middle of paragraph
 
 
 class BookParser(object):

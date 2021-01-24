@@ -176,7 +176,7 @@ class MobiExtractor(MobiReader):
 
         mobi_html = b''
 
-        if self.book_header.compression_type == 'DH':
+        if self.book_header.compression_type == b'DH':
             huffs = [self.sections[i][0] for i in range(self.book_header.huff_offset,
                                                         self.book_header.huff_offset + self.book_header.huff_number)]
             processed_records += list(range(self.book_header.huff_offset,
@@ -184,10 +184,10 @@ class MobiExtractor(MobiReader):
             huff = HuffReader(huffs)
             huff_unpack = huff.unpack
 
-        elif self.book_header.compression_type == '\x00\x02':
+        elif self.book_header.compression_type == b'\x00\x02':
             huff_unpack = decompress_doc
 
-        elif self.book_header.compression_type == '\x00\x01':
+        elif self.book_header.compression_type == b'\x00\x01':
             huff_unpack = lambda x: x
         else:
             raise MobiError('Unknown compression algorithm: %s' % repr(self.book_header.compression_type))
@@ -197,7 +197,7 @@ class MobiExtractor(MobiReader):
 
         if self.book_header.ancient and '<html' not in mobi_html[:300].lower():
             mobi_html = mobi_html.replace('\r ', '\n\n ')
-        mobi_html = mobi_html.replace('\0', '')
+        mobi_html = mobi_html.replace(b'\0', b'')
         if self.book_header.codec == 'cp1252':
             mobi_html = mobi_html.replace('\x1e', '')  # record separator
             mobi_html = mobi_html.replace('\x02', '')  # start of text

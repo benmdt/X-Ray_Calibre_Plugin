@@ -4,7 +4,7 @@
 import os
 import json
 from sqlite3 import connect
-from urllib import urlencode
+from urllib.parse import urlencode
 from urllib2 import urlparse
 
 from calibre_plugins.xray_creator.lib.exceptions import PageDoesNotExist
@@ -40,7 +40,7 @@ class BookSettings(object):
 
         if not self._asin:
             identifiers = database.field_for('identifiers', book_id)
-            if 'mobi-asin' in identifiers.keys():
+            if 'mobi-asin' in list(identifiers.keys()):
                 self._asin = database.field_for('identifiers', book_id)['mobi-asin'].decode('ascii')
                 self._prefs['asin'] = self._asin
             else:
@@ -223,8 +223,8 @@ class BookSettings(object):
         characters = {x[1]: [x[1]] for x in cursor.execute('SELECT * FROM entity').fetchall() if x[3] == 1}
 
         self._aliases = {}
-        for alias, fullname in auto_expand_aliases(characters).items():
-            if fullname not in self._aliases.keys():
+        for alias, fullname in list(auto_expand_aliases(characters).items()):
+            if fullname not in list(self._aliases.keys()):
                 self._aliases[fullname] = [alias]
                 continue
             self._aliases[fullname].append(alias)
@@ -232,9 +232,9 @@ class BookSettings(object):
     def update_aliases_from_json(self, filename):
         '''Gets aliases from json file'''
         data = json.load(open(filename))
-        self._aliases = {name: char['aliases'] for name, char in data['characters'].items()} if 'characters' in data else {}
+        self._aliases = {name: char['aliases'] for name, char in list(data['characters'].items())} if 'characters' in data else {}
         if 'settings' in data:
-            self._aliases.update({name: setting['aliases'] for name, setting in data['settings'].items()})
+            self._aliases.update({name: setting['aliases'] for name, setting in list(data['settings'].items())})
 
     def update_aliases_from_url(self, url):
         '''Gets aliases from Goodreads and expands them if users settings say to do so'''
@@ -247,6 +247,6 @@ class BookSettings(object):
             goodreads_settings = {}
 
         self._aliases = {}
-        for char_data in goodreads_chars.values() + goodreads_settings.values():
-            if char_data['label'] not in self._aliases.keys():
+        for char_data in list(goodreads_chars.values()) + list(goodreads_settings.values()):
+            if char_data['label'] not in list(self._aliases.keys()):
                 self._aliases[char_data['label']] = char_data['aliases']

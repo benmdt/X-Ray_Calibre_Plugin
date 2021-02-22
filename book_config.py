@@ -221,7 +221,8 @@ class BookConfigWidget(QDialog):
         if not prefs['tld']:
             import json
             from collections import defaultdict
-            from urllib2 import urlopen, URLError
+            from urllib.request import urlopen
+            from urllib.error import URLError
 
             try:
                 country = json.loads(urlopen('http://ipinfo.io/json').read())['country']

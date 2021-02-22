@@ -11,7 +11,7 @@ __docformat__ = 'restructuredtext en'
 
 import os
 import webbrowser
-from httplib import HTTPSConnection
+from http.client import HTTPSConnection
 from PyQt5.Qt import QMenu, QToolButton, QIcon, QPixmap
 
 from calibre import get_proxies

@@ -37,9 +37,9 @@ class XRayDBWriter(object):
         '''Write book_metadata table'''
         srl = num_images = show_spoilers_default = '0'
         has_excerpts = '1' if self._excerpt_data > 0 else '0'
-        num_people = sum(1 for char in self._entity_data.keys() if self._entity_data[char]['type'] == 1)
+        num_people = sum(1 for char in list(self._entity_data.keys()) if self._entity_data[char]['type'] == 1)
         num_people_str = str(num_people)
-        num_terms = sum(1 for term in self._entity_data.keys() if self._entity_data[term]['type'] == 2)
+        num_terms = sum(1 for term in list(self._entity_data.keys()) if self._entity_data[term]['type'] == 2)
         num_terms_str = str(num_terms)
         self._db_writer.insert_into_book_metadata((srl, self._erl, 0, has_excerpts, show_spoilers_default, num_people_str,
                                                    num_terms_str, num_images, None))
@@ -47,7 +47,7 @@ class XRayDBWriter(object):
     def fill_entity(self):
         '''Writes entity table'''
         entity_data = []
-        for entity in self._entity_data.keys():
+        for entity in list(self._entity_data.keys()):
             original_label = self._entity_data[entity]['original_label']
             entity_id = str(self._entity_data[entity]['entity_id'])
             entity_type = str(self._entity_data[entity]['type'])
@@ -59,7 +59,7 @@ class XRayDBWriter(object):
     def fill_entity_description(self):
         '''Writes entity_description table'''
         entity_description_data = []
-        for entity in self._entity_data.keys():
+        for entity in list(self._entity_data.keys()):
             original_label = self._entity_data[entity]['original_label']
             entity_id = str(self._entity_data[entity]['entity_id'])
             text = str(self._entity_data[entity]['description'])
@@ -75,7 +75,7 @@ class XRayDBWriter(object):
         for notable_clip in self._notable_clips:
             entity_excerpt_data.append(('0', str(notable_clip)))
 
-        for entity in self._entity_data.keys():
+        for entity in list(self._entity_data.keys()):
             entity_id = str(self._entity_data[entity]['entity_id'])
             for excerpt_id in self._entity_data[entity]['excerpt_ids']:
                 entity_excerpt_data.append((str(entity_id), str(excerpt_id)))
@@ -84,7 +84,7 @@ class XRayDBWriter(object):
     def fill_excerpt(self):
         '''Writes excerpt table'''
         excerpt_data = []
-        for excerpt_id in self._excerpt_data.keys():
+        for excerpt_id in list(self._excerpt_data.keys()):
             if len(self._excerpt_data[excerpt_id]['related_entities']) > 0 or excerpt_id in self._notable_clips:
                 start = str(self._excerpt_data[excerpt_id]['loc'])
                 length = str(self._excerpt_data[excerpt_id]['len'])
@@ -97,7 +97,7 @@ class XRayDBWriter(object):
     def fill_occurrence(self):
         '''Writes occurrence table'''
         occurrence_data = []
-        for entity in self._entity_data.keys():
+        for entity in list(self._entity_data.keys()):
             entity_id = str(self._entity_data[entity]['entity_id'])
             for excerpt in self._entity_data[entity]['occurrence']:
                 occurrence_data.append((entity_id, str(excerpt['loc']),
@@ -112,7 +112,7 @@ class XRayDBWriter(object):
         '''Updates type table using character/settings data'''
         top_mentioned_people = []
         top_mentioned_terms = []
-        for data in self._entity_data.values():
+        for data in list(self._entity_data.values()):
             if data['type'] == 1:
                 top_mentioned_people.append((str(data['entity_id']), data['mentions']))
             elif data['type'] == 2:

@@ -31,7 +31,7 @@ class XRayCreator(object):
         for book in self.books_not_failing():
             self._total_not_failing += 1
             uuid = database.field_for('uuid', book.book_id)
-            if book_lookup.has_key(uuid):
+            if uuid in book_lookup:
                 book.status.set(StatusInfo.FAIL, 'This book has the same UUID as another.')
                 if uuid not in duplicate_uuids:
                     duplicate_uuids.append(uuid)
@@ -219,7 +219,7 @@ class XRayCreator(object):
             books = defaultdict(dict)
             for book in dev.books():
                 uuid = getattr(book, 'uuid', None)
-                if book_lookup.has_key(uuid):
+                if uuid in book_lookup:
                     book_id = book_lookup[uuid].book_id
                     fmt = book.path.split('.')[-1].lower()
                     if fmt not in self._settings['formats']:

@@ -59,10 +59,10 @@ class XRayCreatorPlugin(InterfaceActionBase):
         __prefs__.defaults['tld'] = None
         __prefs__['plugin_path'] = self.plugin_path
 
-        if __prefs__.has_key('mobi') and __prefs__.has_key('azw3'):
+        if 'mobi' in __prefs__ and 'azw3' in __prefs__:
             __prefs__['formats'] = [ftype for ftype in ['mobi', 'azw3'] if __prefs__[ftype]]
             for ftype in ['mobi', 'azw3']:
-                if __prefs__.has_key(ftype):
+                if ftype in __prefs__:
                     del __prefs__[ftype]
         else:
             __prefs__.defaults['formats'] = ['mobi', 'azw3']

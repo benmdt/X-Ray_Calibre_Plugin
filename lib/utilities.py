@@ -5,7 +5,7 @@ import re
 import os
 import time
 import socket
-from httplib import HTTPException
+from http.client import HTTPException
 from calibre.library import current_library_path
 from calibre_plugins.xray_creator.lib.exceptions import PageDoesNotExist
 
@@ -73,8 +73,8 @@ def open_url(connection, url, return_redirect_url=False):
 def auto_expand_aliases(characters):
     '''Goes through each character and expands them using fullname_to_possible_aliases without adding duplicates'''
     actual_aliases = {}
-    duplicates = [alias.lower() for aliases in characters.values() for alias in aliases]
-    for entity_id, aliases in characters.items():
+    duplicates = [alias.lower() for aliases in list(characters.values()) for alias in aliases]
+    for entity_id, aliases in list(characters.items()):
         # get all expansions for original name and aliases retrieved from goodreads
         expanded_aliases = []
         for alias in aliases:

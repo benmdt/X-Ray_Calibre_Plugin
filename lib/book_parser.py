@@ -34,22 +34,22 @@ class BookParser(object):
         if book_type.lower() == 'azw3':
             self._offset = -16
 
-        for char, char_data in goodreads_data['characters'].items():
+        for char, char_data in list(goodreads_data['characters'].items()):
             original = char_data['label']
             label = original.lower()
             desc = char_data['description']
             self._entity_data[label] = {'original_label': original, 'entity_id': char, 'description': desc,
                                         'type': 1, 'mentions': 0, 'excerpt_ids': [], 'occurrence': []}
 
-        for setting, setting_data in goodreads_data['settings'].items():
+        for setting, setting_data in list(goodreads_data['settings'].items()):
             original = setting_data['label']
             label = original.lower()
             desc = setting_data['description']
             self._entity_data[label] = {'original_label': original, 'entity_id': setting, 'description': desc,
                                         'type': 2, 'mentions': 0, 'excerpt_ids': [], 'occurrence': []}
 
-        for term, alias_list in aliases.items():
-            if term.lower() in self._entity_data.keys():
+        for term, alias_list in list(aliases.items()):
+            if term.lower() in list(self._entity_data.keys()):
                 for alias in alias_list:
                     self._aliases[alias.lower()] = term.lower()
 
@@ -59,10 +59,10 @@ class BookParser(object):
         book_html = MobiExtractor(self._book_path, open(os.devnull, 'w')).extract_text()
 
         occurrence_start = []
-        for word, entity_data in self._entity_data.items():
+        for word, entity_data in list(self._entity_data.items()):
             self._get_occurrences(book_html, word, entity_data, occurrence_start)
 
-        for alias, original in self._aliases.items():
+        for alias, original in list(self._aliases.items()):
             entity_data = self._entity_data[original]
             self._get_occurrences(book_html, alias, entity_data, occurrence_start)
 
@@ -99,7 +99,7 @@ class BookParser(object):
                     continue
                 occurrence_start.append(word_start)
 
-                if excerpt in self._excerpt_to_id.keys():
+                if excerpt in list(self._excerpt_to_id.keys()):
                     occurrence_excerpt_id = self._excerpt_to_id[excerpt]
                     if entity_id not in self._excerpts[occurrence_excerpt_id]['related_entities']:
                         self._excerpts[occurrence_excerpt_id]['related_entities'].append(entity_id)
